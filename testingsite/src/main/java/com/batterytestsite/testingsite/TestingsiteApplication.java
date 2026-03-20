@@ -40,6 +40,7 @@ try (FileOutputStream fos = new FileOutputStream(uploadLocation)) {
    fos.close();
 } catch (Exception e) {
 
+   //Shows errors.
  e.printStackTrace();
 
  return "Failure";
