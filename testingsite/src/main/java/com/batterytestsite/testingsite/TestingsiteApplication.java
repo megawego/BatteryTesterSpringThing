@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import jakarta.servlet.ServletContext;
 
 @SpringBootApplication
@@ -34,7 +34,7 @@ ServletContext request;
 
   File uploadLocation = new File("testingsite/fileUploadFolder/wpiData.wpilog");
 
-try (FileOutputStream fos = new FileOutputStream("testingsite/fileUploadFolder/wpiData.wpilog")) {
+try (FileOutputStream fos = new FileOutputStream(uploadLocation)) {
    fos.write(file.getBytes());
    fos.close();
 } catch (Exception e) {
