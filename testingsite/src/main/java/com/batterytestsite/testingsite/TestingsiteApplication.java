@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import jakarta.servlet.ServletContext;
+import com.batterytestsite.testingsite.WPILogHandler;
 
 @SpringBootApplication
 @RestController
@@ -24,7 +24,7 @@ public class TestingsiteApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TestingsiteApplication.class, args);
 	}
-
+   WPILogHandler LogHandler;
 @Autowired
 ServletContext request;
 @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
@@ -32,11 +32,15 @@ ServletContext request;
  public String uploadFile(@RequestParam("file") MultipartFile file) {
 
 
-  File uploadLocation = new File("testingsite/fileUploadFolder/wpiData.wpilog");
+  String uploadLocation = "testingsite/fileUploadFolder/wpiData.wpilog";
+  File uploadedFile=new File(uploadLocation);
 
-try (FileOutputStream fos = new FileOutputStream(uploadLocation)) {
+try {
+   FileOutputStream fos = new FileOutputStream(uploadedFile);
    fos.write(file.getBytes());
    fos.close();
+   LogHandler=new WPILogHandler(uploadLocation);
+   return LogHandler.IsLogValid().toString();
 } catch (Exception e) {
 
    //Shows errors.
@@ -44,8 +48,6 @@ try (FileOutputStream fos = new FileOutputStream(uploadLocation)) {
 
  return "Failure";
  }
-
- return "Success";
  }
    
 
