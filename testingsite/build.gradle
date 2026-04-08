@@ -3,7 +3,7 @@ plugins {
     id 'org.springframework.boot' version '4.0.4'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'edu.wpi.first.GradleRIO' version '2026.2.1'
-    //id 'edu.wpi.first.WpilibTools' version '2.1.0'
+    id 'edu.wpi.first.WpilibTools' version '2.1.0'
 }
 
 group = 'com.batterytestsite'
@@ -33,12 +33,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     implementation wpi.java.vendor.java()
+    implementation "edu.wpi.first.wpiutil:wpiutil-java:2026.+"
+   
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
     testImplementation "org.mockito:mockito-core:5.+"
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    annotationProcessor "org.littletonrobotics.akit:akit-autolog:26.0.2"
+    //annotationProcessor "org.littletonrobotics.akit:akit-autolog:26.0.2"
     // NOTE: The following dependencies were automatically added by the [Gradle Plus] extension.
     // Please review them to ensure they match your project's requirements.
     //*/
