@@ -2,6 +2,7 @@ package com.batterytestsite.testingsite;
 
 import java.io.IOException;
 
+import edu.wpi.first.util.datalog.DataLogIterator;
 import edu.wpi.first.util.datalog.DataLogReader;
 public class WPILogHandler {
     DataLogReader LogReader;
@@ -20,4 +21,8 @@ public class WPILogHandler {
     public Boolean IsLogValid(){
         return LogReader.isValid();
     };
+    public Long getStartingTimestamp(){
+        DataLogIterator LogIterator=LogReader.iterator();
+        return LogIterator.next().getTimestamp();
+    }
 }

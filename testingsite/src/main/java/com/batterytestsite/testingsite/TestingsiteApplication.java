@@ -27,20 +27,24 @@ public class TestingsiteApplication {
    WPILogHandler LogHandler;
 @Autowired
 ServletContext request;
+ public Integer logCount=0;
 @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
  @ResponseBody
  public String uploadFile(@RequestParam("file") MultipartFile file) {
-
-
-  String uploadLocation = "testingsite/fileUploadFolder/wpiData.wpilog";
+  String logName="wpiData"+logCount.toString();
+  String uploadLocation = "testingsite/fileUploadFolder/"+logName+".wpilog";
   File uploadedFile=new File(uploadLocation);
-
+  logCount+=1;
 try {
    FileOutputStream fos = new FileOutputStream(uploadedFile);
    fos.write(file.getBytes());
    fos.close();
    LogHandler=new WPILogHandler(uploadLocation);
-   return LogHandler.IsLogValid().toString();
+   if(LogHandler.IsLogValid()){
+   return Long.toString(LogHandler.getStartingTimestamp());
+   } else {
+      return "Invalid File";
+   }
 } catch (Exception e) {
 
    //Shows errors.
